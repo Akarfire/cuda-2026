@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-__global__ Kernel(float* vec_a, float* vec_b, float* vec_c, n) {
+__global__ Kernel(float* vec_a, float* vec_b, float* vec_c, int n) {
     int tid_x = blockIdx.x * blockDim.x + threadIdx.x;
     int tid_y = blockIdx.y * blockDim.y + threadIdx.y;
     
