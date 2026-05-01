@@ -1,9 +1,0 @@
-/home/crazyproger/sandbox/cuda-2026/3823B1FI3/2_gelu_cuda/frolova_sofya/gelu_cuda.cu(62): error: identifier "I" is undefined
-      } I
-        ^
-
-/home/crazyproger/sandbox/cuda-2026/3823B1FI3/2_gelu_cuda/frolova_sofya/gelu_cuda.cu(64): error: declaration is incompatible with previous "cudaDeviceSynchronize" (declared at line 356 of /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime_api.h)
-      cudaDeviceSynchronize();
-      ^
-
-2 errors detected in the compilation of "/home/crazyproger/sandbox/cuda-2026/3823B1FI3/2_gelu_cuda/frolova_sofya/gelu_cuda.cu".
