@@ -1,9 +1,9 @@
 #include "block_gemm_cuda.h"
 #include <cuda_runtime.h>
 
-static const blk_size = 32;
+static const int blk_size = 32;
 
-__global__ void Kernel(float* vec_a, float* vec_a, float* vec_c, int n, int num_blocks){
+__global__ void Kernel(float* vec_a, float* vec_b, float* vec_c, int n, int num_blocks){
     __shared__ float A[blk_size][blk_size];
     __shared__ float B[blk_size][blk_size];
     
@@ -67,7 +67,7 @@ std::vector<float> BlockGemmCUDA(const std::vector<float>& a,
     cudaMemcpyAsync(vec_b, b.data(), bytes, cudaMemcpyHostToDevice, stream);
 
     dim3 tread_net(blk_size, blk_size);
-    static const size = n / blk_size;
+    static const int size = n / blk_size;
     dim3 grid(size, size);
 
     Kernel<<<grid, tread_net, 0, stream>>>((float*)vec_a, (float*)vec_b, (float*)vec_c, n, size);
