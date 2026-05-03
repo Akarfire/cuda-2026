@@ -73,7 +73,7 @@ std::vector<float> BlockGemmCUDA(const std::vector<float>& a,
     Kernel<<<grid, tread_net, 0, stream>>>((float*)vec_a, (float*)vec_b, (float*)vec_c, n, size);
 
 
-    std::vector<float> output(n); 
+    std::vector<float> output(a.size()); 
     cudaMemcpyAsync(output.data(), vec_c, bytes, cudaMemcpyDeviceToHost, stream);
     cudaStreamSynchronize(stream);
     return output;
