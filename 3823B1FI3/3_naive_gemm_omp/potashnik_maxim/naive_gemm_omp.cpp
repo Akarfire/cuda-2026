@@ -9,7 +9,7 @@
 2. Better cache usage (IJK -> IKJ)
 3. Calculating a[i][k] out of j-loop
 4. SIMD in inner loop
-5. Using pointers to (MAYBE) simplify data access
+5. Using pointers to (MAYBE) simplify data access (and help SIMD)
 */
 
 #include "naive_gemm_omp.h"
