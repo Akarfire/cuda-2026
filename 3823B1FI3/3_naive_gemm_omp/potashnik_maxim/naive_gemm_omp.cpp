@@ -15,6 +15,8 @@ Did it by my hands because it help when I was testing in on my laptop
 */
 
 #include "naive_gemm_omp.h"
+#include <vector>
+#include <omp.h>
 
 std::vector<float> NaiveGemmOMP(const std::vector<float>& a, const std::vector<float>& b, int n) {
     std::vector<float> c(n * n);
