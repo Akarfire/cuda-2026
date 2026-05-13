@@ -17,7 +17,8 @@
 3. Thread parallelism + SIMD for each thread
 4. Flags
 5. loop-unrolling via flag (should help?)
-6. Exponent approximations that should be faster, BUT can harm precision
+6. Exponent approximations that should be faster, BUT can harm precision (Deprecated)
+Precision was not enough, so this idea was deprecated
 */
 
 // Abusing floating-point representation for fast exp approximation
@@ -46,7 +47,7 @@ inline float fast_exp2(float x) {
 }
 
 // 10 multiplications
-// Precision is enough??
+// Precision is not enough
 /*
 Max absolute error: 0.00033576
 Best time: 37.0399 ms
@@ -60,7 +61,7 @@ inline float fast_exp3(float x) {
 }
 
 // 12 multiplications
-// Precision is enough??
+// Precision is not enough
 /* Test:
 Max absolute error: 0.000106648
 Best time: 33.0428 ms
@@ -91,11 +92,10 @@ std::vector<float> GeluOMP(const std::vector<float>& input)
     {
         float x = input[i];
 
-        float x3 = x * x * x;
-        float exp_arg = coeff_1 * (x + coeff_2 * x3);
-        float sigmoid = 1.0f / (1.0f + fast_exp3(-exp_arg));
-
-        res[i] = x * sigmoid;
+        float x2 = x * x;
+        float exp_arg = coeff_1 * x * (1.0f + coeff_2 * x2);
+        float e = expf(exp_arg);
+        res[i] = x * e / (e + 1.0f);
     }
     return res;
 }
