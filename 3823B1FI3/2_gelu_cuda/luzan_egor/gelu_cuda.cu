@@ -1,7 +1,7 @@
 #include <cuda_runtime.h>
 #include "gelu_cuda.h"
 
-#include <cmath>
+// #include <cmath>
 
 __global__ void GeluKernel(const float* __restrict__ input, float* __restrict__ output, int n)
 {
@@ -48,8 +48,4 @@ std::vector<float> GeluCUDA(const std::vector<float>& input)
     cudaFree(d_output);
 
     return output;
-}
-
-int main() {
-    return 0;
 }
