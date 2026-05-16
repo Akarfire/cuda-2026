@@ -41,7 +41,7 @@ std::vector<float> NaiveGemmCUDA(const std::vector<float>& a,
     static cudaStream_t stream = nullptr;
     static int mem_sz = 0;
 
-    if (mem_sz != size) {
+    if (mem_sz < size) {
         if (stream == nullptr) {
             cudaStreamCreate(&stream);
         }
@@ -61,8 +61,8 @@ std::vector<float> NaiveGemmCUDA(const std::vector<float>& a,
                                      
     dim3 threads(16, 16);
     dim3 grid(
-        (n + threads.x - 1) / threads.x,
-        ((n / 4) + threads.y - 1) / threads.y
+        ((n / 4) + threads.x - 1) / threads.x,
+        (n + threads.y - 1) / threads.y
     );
     
     NaiveGemm_cu<<<grid, threads, 0, stream>>>(d_A, d_B, d_C, n);
