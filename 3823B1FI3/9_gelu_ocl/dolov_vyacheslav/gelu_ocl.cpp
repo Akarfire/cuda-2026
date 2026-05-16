@@ -1,4 +1,4 @@
-#define CL_TARGET_OPENCL_VERSION 200
+#define CL_TARGET_OPENCL_VERSION 300
 #include "gelu_ocl.h"
 #include <CL/cl.h>
 

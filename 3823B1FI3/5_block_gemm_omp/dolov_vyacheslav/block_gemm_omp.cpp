@@ -29,7 +29,6 @@ std::vector<float> BlockGemmOMP(const std::vector<float>& a,
                         const float* __restrict__ b_row = pB + k * n;
                         
                         #pragma omp simd
-                        #pragma GCC unroll 8
                         for (int j = jj; j < jj + block_size; ++j) {
                             c_row[j] += a_val * b_row[j];
                         }
