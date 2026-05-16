@@ -1,6 +1,10 @@
 #pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("fast-math")
+#pragma GCC target("avx,avx2,fma")
+
 #include "gelu_cuda.h"
-#include <iostream>
 
 /* Optimizations for GELU CUDA
 1. Overlap data transfer and computation
