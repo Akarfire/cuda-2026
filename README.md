@@ -529,6 +529,7 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|frolova_sofya|0.1009|10|
 |3823B1FI3|kichanova_ksenia|0.1231|4|
 |3823B1FI3|kutuzov_ivan|0.1267|12|
+|3823B1FI3|papulina_yuliya|0.1456|18|
 |3823B1FI3|votincev_dmitri|0.1465|7|
 |3823B1FI3|pylaeva_svetlana|0.1569|8|
 |**FAST**|**FAST**|**0.1591**|**-**|
@@ -542,7 +543,6 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|baldin_andrew|0.2100|1|
 |3823B1FI3|zavyalov_alexey|0.2321|2|
 |**REF**|**REF**|**0.5797**|**-**|
-|3823B1FI3|papulina_yuliya|BUILD FAILED|-|
 
 ## 5_block_gemm_omp (1024 elements)
 |Group|Name|Result|Rank|
@@ -610,6 +610,7 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|votincev_dmitri|0.0386|3|
 |3823B1FI3|potashnik_maxim|0.0405|14|
 |3823B1FI3|lukin_ivan|0.0409|9|
+|3823B1FI3|papulina_yuliya|0.0462|16|
 |**FAST**|**FAST**|**0.0484**|**-**|
 |**REF**|**REF**|**0.0534**|**-**|
 |3823B1FI3|kutuzov_ivan|0.0971|11|
@@ -632,6 +633,7 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|pylaeva_svetlana|0.0901|7|
 |**FAST**|**FAST**|**0.0916**|**-**|
 |3823B1FI3|levonychev_ivan|0.0987|2|
+|3823B1FI3|papulina_yuliya|0.1126|16|
 |**REF**|**REF**|**0.2027**|**-**|
 |3823B1FI3|kutuzov_ivan|0.2369|11|
 
@@ -659,26 +661,26 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 ## 3823B1FI3
 |Group|Name|Passed|Score|
 |-----|----|------|-----|
-|3823B1FI3|baldin_andrew|**9/9**|**467**|
+|3823B1FI3|baldin_andrew|**9/9**|**466**|
 |3823B1FI3|chacshin_vladimir|3/9|130|
 |3823B1FI3|dolov_vyacheslav|**9/9**|**429**|
 |3823B1FI3|frolova_sofya|8/9|343|
-|3823B1FI3|gonozov_leonid|5/9|192|
+|3823B1FI3|gonozov_leonid|5/9|191|
 |3823B1FI3|gutyansky_alexey|**9/9**|**438**|
 |3823B1FI3|kichanova_ksenia|**9/9**|**495**|
-|3823B1FI3|kurpiakov_aleksei|**9/9**|**450**|
+|3823B1FI3|kurpiakov_aleksei|**9/9**|**449**|
 |3823B1FI3|kurpiakov_alexei|2/9|100|
 |3823B1FI3|kutergin_valentin|**9/9**|**471**|
-|3823B1FI3|kutuzov_ivan|8/9|332|
-|3823B1FI3|levonychev_ivan|**9/9**|**451**|
-|3823B1FI3|lukin_ivan|**9/9**|**432**|
-|3823B1FI3|luzan_egor|6/9|203|
-|3823B1FI3|papulina_yuliya|5/9|213|
-|3823B1FI3|potashnik_maxim|**9/9**|**400**|
-|3823B1FI3|pylaeva_svetlana|**9/9**|**438**|
-|3823B1FI3|romanov_artem|**9/9**|**448**|
-|3823B1FI3|votincev_dmitri|**9/9**|**447**|
-|3823B1FI3|zavyalov_alexey|**9/9**|**436**|
+|3823B1FI3|kutuzov_ivan|8/9|330|
+|3823B1FI3|levonychev_ivan|**9/9**|**450**|
+|3823B1FI3|lukin_ivan|**9/9**|**431**|
+|3823B1FI3|luzan_egor|6/9|202|
+|3823B1FI3|papulina_yuliya|8/9|324|
+|3823B1FI3|potashnik_maxim|**9/9**|**399**|
+|3823B1FI3|pylaeva_svetlana|**9/9**|**437**|
+|3823B1FI3|romanov_artem|**9/9**|**447**|
+|3823B1FI3|votincev_dmitri|**9/9**|**446**|
+|3823B1FI3|zavyalov_alexey|**9/9**|**435**|
 
 Passed: 13
 
