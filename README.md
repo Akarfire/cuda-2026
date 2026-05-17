@@ -621,6 +621,7 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|dolov_vyacheslav|0.0730|14|
 |3823B1FI3|kutergin_valentin|0.0738|9|
 |3823B1FI3|zavyalov_alexey|0.0767|6|
+|3823B1FI3|gutyansky_alexey|0.0793|15|
 |3823B1FI3|baldin_andrew|0.0844|4|
 |3823B1FI3|lukin_ivan|0.0854|8|
 |3823B1FI3|kurpiakov_aleksei|0.0867|3|
@@ -633,7 +634,6 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 |3823B1FI3|levonychev_ivan|0.0987|2|
 |**REF**|**REF**|**0.2027**|**-**|
 |3823B1FI3|kutuzov_ivan|0.2369|11|
-|3823B1FI3|gutyansky_alexey|TEST FAILED|-|
 
 ## 9_gelu_ocl (134217728 elements)
 |Group|Name|Result|Rank|
@@ -659,30 +659,30 @@ std::vector<float> GeluOCL(const std::vector<float>& input, int platform) {
 ## 3823B1FI3
 |Group|Name|Passed|Score|
 |-----|----|------|-----|
-|3823B1FI3|baldin_andrew|**9/9**|**468**|
+|3823B1FI3|baldin_andrew|**9/9**|**467**|
 |3823B1FI3|chacshin_vladimir|3/9|130|
 |3823B1FI3|dolov_vyacheslav|**9/9**|**429**|
-|3823B1FI3|frolova_sofya|8/9|344|
+|3823B1FI3|frolova_sofya|8/9|343|
 |3823B1FI3|gonozov_leonid|5/9|192|
-|3823B1FI3|gutyansky_alexey|8/9|392|
+|3823B1FI3|gutyansky_alexey|**9/9**|**438**|
 |3823B1FI3|kichanova_ksenia|**9/9**|**495**|
-|3823B1FI3|kurpiakov_aleksei|**9/9**|**451**|
+|3823B1FI3|kurpiakov_aleksei|**9/9**|**450**|
 |3823B1FI3|kurpiakov_alexei|2/9|100|
 |3823B1FI3|kutergin_valentin|**9/9**|**471**|
-|3823B1FI3|kutuzov_ivan|8/9|333|
-|3823B1FI3|levonychev_ivan|**9/9**|**452**|
-|3823B1FI3|lukin_ivan|**9/9**|**433**|
+|3823B1FI3|kutuzov_ivan|8/9|332|
+|3823B1FI3|levonychev_ivan|**9/9**|**451**|
+|3823B1FI3|lukin_ivan|**9/9**|**432**|
 |3823B1FI3|luzan_egor|6/9|203|
 |3823B1FI3|papulina_yuliya|5/9|213|
-|3823B1FI3|potashnik_maxim|**9/9**|**401**|
-|3823B1FI3|pylaeva_svetlana|**9/9**|**439**|
-|3823B1FI3|romanov_artem|**9/9**|**449**|
-|3823B1FI3|votincev_dmitri|**9/9**|**448**|
+|3823B1FI3|potashnik_maxim|**9/9**|**400**|
+|3823B1FI3|pylaeva_svetlana|**9/9**|**438**|
+|3823B1FI3|romanov_artem|**9/9**|**448**|
+|3823B1FI3|votincev_dmitri|**9/9**|**447**|
 |3823B1FI3|zavyalov_alexey|**9/9**|**436**|
 
-Passed: 12
+Passed: 13
 
-**Total Passed: 12**
+**Total Passed: 13**
 
 ---
 *Maximum Score: 576 (64 per task)*
