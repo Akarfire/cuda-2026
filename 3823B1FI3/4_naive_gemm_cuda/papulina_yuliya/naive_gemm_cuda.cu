@@ -1,49 +1,82 @@
 #include "naive_gemm_cuda.h"
 #include <cuda_runtime.h>
+#include <vector>
+#include <memory>
 
-__global__ void NaiveGemmCUDAkernel(const float* __restrict__ a, const float* __restrict__ b, float* __restrict__ res, int n) {
-    int i = (blockIdx.x * blockDim.x + threadIdx.x)*4;
-    int j = blockIdx.y * blockDim.y + threadIdx.y;
-    if (i < n && j < n) {
-        float4 tmp = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
-        #pragma unroll 8
-        for(int k=0; k<n; k++){
-            float a_elem = a[j*n +k];
-            float b_elem = reinterpret_cast<const float4*>(b + k * n + i)[0];
-            tmp.x += a_elem * b_elem.x;
-            tmp.y += a_elem * b_elem.y;
-            tmp.z += a_elem * b_elem.z;
-            tmp.w += a_elem * b_elem.w;
+struct Deleter {
+    void operator()(float* ptr) const {
+        if (ptr) cudaFree(ptr);
+    }
+};
+using my_pointer = std::unique_ptr<float[], Deleter>;
+
+template <int SIZE>
+__global__ void GemmKernel(const float* __restrict__ A, 
+                                const float* __restrict__ B, 
+                                float* __restrict__ C, 
+                                int n) {
+    __shared__ float shared_A[SIZE][SIZE];
+    __shared__ float shared_B[SIZE][SIZE];
+
+    int tx = threadIdx.x;
+    int ty = threadIdx.y;
+
+    int i = blockIdx.y * SIZE + ty;
+    int j = blockIdx.x * SIZE + tx;
+
+    float sum = 0.0f;
+    int num_tiles = (n + SIZE - 1) / SIZE;
+    
+    for (int t = 0; t < num_tiles; ++t) {
+        if (i < n && (t * SIZE + tx) < n)
+            shared_A[ty][tx] = A[i * n + t * SIZE + tx];
+        else
+            shared_A[ty][tx] = 0.0f;
+
+        if ((t * SIZE + ty) < n && j < n)
+            shared_B[ty][tx] = B[(t * SIZE + ty) * n + j];
+        else
+            shared_B[ty][tx] = 0.0f;
+
+        __syncthreads();
+        #pragma unroll
+        for (int k = 0; k < SIZE; ++k) {
+            sum += shared_A[ty][k] * shared_B[k][tx];
         }
-        reinterpret_cast<float4*>(res + j * n + i)[0] = tmp;
+        __syncthreads();
+    }
+
+    if (i < n && j < n) {
+        C[i * n + j] = sum;
     }
 }
 
 std::vector<float> NaiveGemmCUDA(const std::vector<float>& a,
                                  const std::vector<float>& b,
                                  int n) {
-    std::vector<float> result(n*n);
-    float * a_in = nullptr, *b_in=nullptr, *res = nullptr;
-    size_t bytes = n * sizeof(float) * n;
-    const int block_size = 256;
+    std::vector<float> result(n * n);
+    size_t byte_size = static_cast<size_t>(n) * n * sizeof(float);
 
-    cudaMalloc(&a_in, bytes);
-    cudaMalloc(&b_in, bytes);
-    cudaMalloc(&res, bytes);
+    float *A = nullptr, *B = nullptr, *C = nullptr;
+    
+    cudaMalloc(&A, byte_size);
+    my_pointer d_A(A);
+    
+    cudaMalloc(&B, byte_size);
+    my_pointer d_B(B);
+    
+    cudaMalloc(&C, byte_size);
+    my_pointer d_C(C);
 
-    cudaMemcpy(a_in, a.data(), bytes, cudaMemcpyHostToDevice);
-    cudaMemcpy(b_in, b.data(), bytes, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_A.get(), a.data(), byte_size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_B.get(), b.data(), byte_size, cudaMemcpyHostToDevice);
+    constexpr int dim = 32;
+    dim3 block_dim(dim, dim);
+    dim3 grid_dim((n + dim - 1) / dim, (n + dim - 1) / dim);
 
-    dim3 threadsForBlock(16, 16); 
-    dim3 numBlocks((n/4 + threadsForBlock.x - 1)/threadsForBlock.x,(n + threadsForBlock.y - 1)/threadsForBlock.y);
-
-    NaiveGemmCUDAkernel<<<numBlocks, threadsForBlock>>>(a_in, b_in, res, n);
-
-    cudaMemcpy(result.data(), res, bytes, cudaMemcpyDeviceToHost);
-
-    cudaFree(a_in);
-    cudaFree(b_in);
-    cudaFree(res);
+    GemmKernel<dim><<<grid_dim, block_dim>>>(d_A.get(), d_B.get(), d_C.get(), n);
+    cudaDeviceSynchronize();
+    cudaMemcpy(result.data(), d_C.get(), byte_size, cudaMemcpyDeviceToHost);
 
     return result;
 }
